@@ -21,11 +21,12 @@ const Header = () => {
         <ul className="border-0 border-green-700 w-[50%] pl-1 sm:w-[auto] flex justify-between items-center">
             <li><Link to="/" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>Home</Link></li>
             <li><Link to="/about" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>About</Link></li>
-            {data?.currentUser != null ? 
-            <li><Link to="/profile" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>{data?.currentUser.username}</Link></li>
-            :
-            <li><Link to="/login" className='bg-purple-600 px-4 py-1 rounded-md text-white flex items-center hover:bg-purple-800'>Login</Link></li>
-          }
+            {
+              data?.currentUser != null ? 
+              <li><Link to="/profile" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>{data?.currentUser.username}</Link></li>
+              :
+              <li><Link to="/login" className='bg-purple-600 px-4 py-1 rounded-md text-white flex items-center hover:bg-purple-800'>Login</Link></li>
+            }
         </ul>
     </header>
     </>
