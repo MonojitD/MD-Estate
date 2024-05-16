@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   const data = useSelector((state)=>state.user);
-  console.log(data)
+  // console.log(data)
   return (
     <>
     <header className='border-0 border-red-700 px-1 py-1 flex flex-wrap justify-between bg-purple-100 sm:px-10'>
@@ -23,7 +23,11 @@ const Header = () => {
             <li><Link to="/about" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>About</Link></li>
             {
               data?.currentUser != null ? 
-              <li><Link to="/profile" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>{data?.currentUser.username}</Link></li>
+              <li>
+                <Link to="/profile" className='text-purple-500 font-[600] mr-3 flex  hover:text-purple-800'>
+                  <img className='rounded-full h-7 w-7 object-cover' src={data?.currentUser?.avatar} alt="profile" referrerPolicy="no-referrer"/>
+                </Link>
+              </li>
               :
               <li><Link to="/login" className='bg-purple-600 px-4 py-1 rounded-md text-white flex items-center hover:bg-purple-800'>Login</Link></li>
             }

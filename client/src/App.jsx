@@ -8,6 +8,8 @@ import Signup from "./pages/Signup";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Profile from "./pages/Profile";
+import ProtectedRout from "./components/ProtectedRout";
 
 const App = () => {
   return (
@@ -20,6 +22,10 @@ const App = () => {
 
         <Route exact path="/" element={<Home />} ></Route>
         <Route exact path="/about" element={<About />} ></Route>
+        
+        <Route element={<ProtectedRout />} >
+          <Route exact path="/profile" element={<Profile />} ></Route>
+        </Route>
       </Routes>
     </Router>
     </>
