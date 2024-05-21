@@ -14,10 +14,11 @@ import { ModalContext } from "./ModalContext";
 
 const App = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [modalData, setModalData] = useState({});
   return (
     <>
     <Router>
-      <ModalContext.Provider value={{ openModal, setOpenModal }}>
+      <ModalContext.Provider value={{ openModal, setOpenModal, modalData, setModalData }}>
         <Header />
         <Routes>
           <Route exact path="/login" element={<Signin />} ></Route>
