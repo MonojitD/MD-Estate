@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { app } from '../firebase'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { updateUserStart, updateUserSuccess, updateUserFailure } from '../store/user/userSlice'
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess } from '../store/user/userSlice'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AlertBox from '../components/AlertBox'
+import { ModalContext } from '../ModalContext'
 
 
 const Profile = () => {
@@ -15,9 +17,9 @@ const Profile = () => {
     const [filePerc, setFilePerc] = useState(0)
     const [fileUploadError, setFileUploadError] = useState(false)
     const [formData, setFormData] = useState({})
+    const { openModal, setOpenModal } = useContext(ModalContext)
 
     const dispatch = useDispatch();
-
     console.log(formData)
 
     useEffect(() => {
@@ -82,6 +84,26 @@ const Profile = () => {
         }
     }
 
+    const handleDelete = async () => {
+        try {
+            dispatch(deleteUserStart());
+            const res  = await fetch(`/api/user/delete/${currentUser._id}`, {
+                method: 'DELETE',
+            })
+            const data = await res.json()
+
+            if(data.success === false) {
+                dispatch(deleteUserFailure(data.message));
+                return;
+            }
+            dispatch(deleteUserSuccess(data));
+            
+        } catch (error) {
+            dispatch(deleteUserFailure(error.message))
+        }
+        setOpenModal(false)
+    }
+
 
 
   return (
@@ -108,10 +130,19 @@ const Profile = () => {
             </button>
         </form>
         <div  className='flex justify-between mt-5'>
-            <span className='text-red-700 cursor-pointer hover:opacity-60'>Delete account</span>
+            <span onClick={() => setOpenModal(true)} className='text-red-700 cursor-pointer hover:opacity-60'>Delete account</span>
             <span className='text-red-700 cursor-pointer hover:opacity-60'>Sign out</span>
         </div>
         <ToastContainer/>
+        {openModal && 
+            <AlertBox 
+                title="Delete account"
+                message="Are you sure you want to delete this account? This action cannot be undone." 
+                type="Delete"
+                color="#ff4444"
+                action={handleDelete}
+            />
+        }
     </div>
   )
 }
