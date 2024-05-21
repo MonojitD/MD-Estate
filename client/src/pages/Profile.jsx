@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { app } from '../firebase'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess } from '../store/user/userSlice'
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutStart, signOutFailure, signOutSuccess } from '../store/user/userSlice'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ const Profile = () => {
     const [filePerc, setFilePerc] = useState(0)
     const [fileUploadError, setFileUploadError] = useState(false)
     const [formData, setFormData] = useState({})
-    const { openModal, setOpenModal } = useContext(ModalContext)
+    const { openModal, setOpenModal, modalData, setModalData } = useContext(ModalContext)
 
     const dispatch = useDispatch();
     console.log(formData)
@@ -27,6 +27,10 @@ const Profile = () => {
             handleFileUpload(file)
         }
     },[file]);
+
+    useEffect(() => {
+        setOpenModal(false)
+    }, [])
 
     const handleFileUpload = (file) => {
         const storage = getStorage(app)
@@ -84,6 +88,23 @@ const Profile = () => {
         }
     }
 
+    const handleLogout = async () => {
+        try {
+            dispatch(signOutStart());
+            const res  = await fetch(`/api/auth/signout`);
+            const data = await res.json();
+            if(data.success === false) {
+                dispatch(signOutFailure(data.message))
+                return;
+            }
+
+            dispatch(signOutSuccess(data));
+        } catch (error) {
+            dispatch(signOutFailure(error.message))
+        }
+        setOpenModal(false)
+    }
+
     const handleDelete = async () => {
         try {
             dispatch(deleteUserStart());
@@ -102,6 +123,27 @@ const Profile = () => {
             dispatch(deleteUserFailure(error.message))
         }
         setOpenModal(false)
+    }
+
+    const openLogoutModal = () => {
+        setOpenModal(true); 
+        setModalData({
+            title: "Log out",
+            message: "Are you sure you want log out from this account?" ,
+            type: "Log out",
+            action: handleLogout,
+        });
+    }
+
+    const openDeleteModal = () => {
+        setOpenModal(true); 
+        setModalData({
+            title: "Delete account",
+            message: "Are you sure you want to delete this account? This action cannot be undone." ,
+            type: "Delete",
+            color: "#ff4444",
+            action: handleDelete,
+        });
     }
 
 
@@ -130,19 +172,11 @@ const Profile = () => {
             </button>
         </form>
         <div  className='flex justify-between mt-5'>
-            <span onClick={() => setOpenModal(true)} className='text-red-700 cursor-pointer hover:opacity-60'>Delete account</span>
-            <span className='text-red-700 cursor-pointer hover:opacity-60'>Sign out</span>
+            <span onClick={openDeleteModal} className='text-red-700 cursor-pointer hover:opacity-60'>Delete account</span>
+            <span onClick={openLogoutModal} className='text-red-700 cursor-pointer hover:opacity-60'>Log out</span>
         </div>
         <ToastContainer/>
-        {openModal && 
-            <AlertBox 
-                title="Delete account"
-                message="Are you sure you want to delete this account? This action cannot be undone." 
-                type="Delete"
-                color="#ff4444"
-                action={handleDelete}
-            />
-        }
+        {openModal && <AlertBox />}
     </div>
   )
 }
