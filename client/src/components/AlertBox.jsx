@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ModalContext } from '../ModalContext'
 
-const AlertBox = (props) => {
+const AlertBox = () => {
     const {openModal, setOpenModal, modalData, setModalData} = useContext(ModalContext)
   return (
     <div className='border-2 border-red-600 bg-[#00000020] fixed top-0 left-0 w-full h-full flex justify-center items-center'>
