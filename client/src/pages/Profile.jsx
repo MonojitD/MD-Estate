@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { app } from '../firebase'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutStart, signOutFailure, signOutSuccess } from '../store/user/userSlice'
+import { Link } from 'react-router-dom'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,7 +39,8 @@ const Profile = () => {
         const storageRef = ref(storage, fileName);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
-        uploadTask.on('state_changed', 
+        uploadTask.on(
+            'state_changed', 
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 setFilePerc(Math.round(progress))
@@ -170,6 +172,9 @@ const Profile = () => {
             <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
                 {loading ? "Loading..." : "Update"}
             </button>
+            <Link to="/create-listing" className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'>
+                Create listing
+            </Link>
         </form>
         <div  className='flex justify-between mt-5'>
             <span onClick={openDeleteModal} className='text-red-700 cursor-pointer hover:opacity-60'>Delete account</span>
