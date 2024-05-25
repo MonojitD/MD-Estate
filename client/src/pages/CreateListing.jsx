@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
+
 const CreateListing = () => {
   const [files, setFiles] = useState([]);
   const [imageUploadError, setImageUploadError] = useState();
@@ -54,6 +55,7 @@ const CreateListing = () => {
       setUploading(false);
     }
   }
+
   const handleRemoveImage = (index) => {
     setFormData({
       ...formData,
@@ -86,6 +88,7 @@ const CreateListing = () => {
       )
     })
   }
+
 
   const handleChange = (e) => {
     if(e.target.id === "rent" || e.target.id === "sale") {
@@ -156,6 +159,7 @@ const CreateListing = () => {
       setLoading(false)
     }
   }
+
   return (
     <main className='p-3 max-w-4xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>
