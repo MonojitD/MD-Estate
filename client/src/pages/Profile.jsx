@@ -166,6 +166,37 @@ const Profile = () => {
         }
     };
 
+    const openListingDeleteModal = (listingId) => {
+        setOpenModal(true); 
+        setModalData({
+            title: "Delete listing",
+            message: "Are you sure you want to delete this listing? This action cannot be undone." ,
+            type: "Delete",
+            color: "#ff4444",
+            action: () => handleListingDelete(listingId),
+        });
+    }
+
+    const handleListingDelete = async (listingId) => {
+        try {
+            const res = await fetch(`/api/listing/delete/${listingId}`, {
+                method: "DELETE",
+            });
+            const data = await res.json();
+
+            if(data.success === false) {
+                console.log(data.message);
+                return
+            }
+            setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
+            toast.success("Listing deleted successfully 🗑️", {autoClose: 3000})
+            setOpenModal(false)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+
 
 
   return (
@@ -232,7 +263,7 @@ const Profile = () => {
 
                 <div className='flex flex-col item-center'>
                     <button
-                    onClick={() => handleListingDelete(listing._id)}
+                    onClick={() => openListingDeleteModal(listing._id)}
                     className='text-red-700 uppercase'
                     >
                     Delete
