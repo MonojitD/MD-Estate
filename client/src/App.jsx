@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import ProtectedRout from "./components/ProtectedRout";
 import CreateListing from "./pages/CreateListing";
+import UpdateListing from "./pages/UpdateListing";
 
 const App = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -31,6 +32,7 @@ const App = () => {
           <Route element={<ProtectedRout />} >
             <Route exact path="/profile" element={<Profile />} ></Route>
             <Route exact path="/create-listing" element={<CreateListing />} ></Route>
+            <Route exact path="/update-listing/:listingId" element={<UpdateListing />} ></Route>
           </Route>
         </Routes>
       </ModalContext.Provider>
