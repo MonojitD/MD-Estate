@@ -1,22 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
 import { FaSearch } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const data = useSelector((state)=>state.user);
+  const navigate = useNavigate();
   // console.log(data)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm); 
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if(searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search])
+  console.log(searchTerm)
   return (
     <>
-    <header className='border-0 border-red-700 px-1 py-1 flex flex-wrap justify-between bg-purple-100 sm:px-10'>
+    <header className='border-0 border-red-700 px-1 py-2 flex flex-wrap justify-between bg-purple-100 sm:px-10'>
         <div className="border-0 border-green-700 w-[100%] sm:w-[15%] flex justify-center sm:justify-start items-center">
             <span className='text-[7vw] sm:text-[2vw] font-[700] text-purple-800'>MD</span>&nbsp;
             <span className='text-[7vw] sm:text-[2vw] font-[700] text-purple-500'>Estate</span>
         </div>
-        <form className="border-[3px] bg-white border-purple-400 rounded-md w-[50%] sm:w-[25%] flex items-center">
-            <input className='w-[90%] bg-transparent px-2 py-1 border-0 flex focus-visible:outline-0' type="text" name="search" id="search" placeholder='Search...'/>
-            <FaSearch className='w-[10%] h-5 text-purple-500 cursor-pointer hover:text-purple-800' />
+        <form onSubmit={handleSubmit} className="border-[0px] bg-white px-2 border-purple-400 rounded-md w-[50%] sm:w-[25%] flex items-center">
+            <input 
+              className='w-[90%] bg-transparent px-1 py-2 border-0 flex focus-visible:outline-0' 
+              type="text" 
+              name="search" 
+              id="search" 
+              placeholder='Search...'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button type='submit' className='w-[10%]'>
+              <FaSearch className='w-[100%] text-purple-500 cursor-pointer hover:text-purple-800' />
+            </button>
         </form>
         <ul className="border-0 border-green-700 w-[50%] pl-1 sm:w-[auto] flex justify-between items-center">
             <li><Link to="/" className='text-purple-500 font-[600] mr-3  hover:text-purple-800'>Home</Link></li>
