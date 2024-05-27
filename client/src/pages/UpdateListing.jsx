@@ -30,7 +30,7 @@ import { useNavigate, useParams } from 'react-router-dom';
     type: "rent",
     offer: false,
     imageUrls: [],
-    usreRef: currentUser._id,
+    userRef: currentUser._id,
   });
   console.log(formData)
 

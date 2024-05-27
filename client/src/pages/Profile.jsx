@@ -23,7 +23,7 @@ const Profile = () => {
     const { openModal, setOpenModal, modalData, setModalData } = useContext(ModalContext)
 
     const dispatch = useDispatch();
-    console.log(formData)
+    // console.log(formData)
 
     useEffect(() => {
         if(file) {

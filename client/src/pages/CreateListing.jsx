@@ -29,7 +29,7 @@ const CreateListing = () => {
     type: "rent",
     offer: false,
     imageUrls: [],
-    usreRef: currentUser._id,
+    userRef: currentUser._id,
   });
   console.log(formData)
 

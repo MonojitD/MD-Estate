@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import ProtectedRout from "./components/ProtectedRout";
 import CreateListing from "./pages/CreateListing";
 import UpdateListing from "./pages/UpdateListing";
+import Listing from "./pages/Listing";
 
 const App = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -28,6 +29,7 @@ const App = () => {
 
           <Route exact path="/" element={<Home />} ></Route>
           <Route exact path="/about" element={<About />} ></Route>
+          <Route exact path="/listing/:listingId" element={<Listing />} ></Route>
           
           <Route element={<ProtectedRout />} >
             <Route exact path="/profile" element={<Profile />} ></Route>
