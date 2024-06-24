@@ -224,16 +224,16 @@ export default function Search() {
               <option value='createdAt_asc'>Oldest</option>
             </select>
           </div>
-          <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+          <button className='bg-blue-600 hover:shadow-lg hover:shadow-blue-200 text-white p-3 rounded-lg hover:opacity-95'>
             Search
           </button>
         </form>
       </div>
       <div className='flex-1'>
-        <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
-          Listing results:
+        <h1 className='text-2xl font-semibold border-b p-3 text-slate-700 mt-5'>
+          Listing Results
         </h1>
-        <div className='p-7 flex flex-wrap gap-4'>
+        <div className='p-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
           {!loading && listings.length === 0 && (
             <p className='text-xl text-slate-700'>No listing found!</p>
           )}

@@ -5,6 +5,9 @@ import OAuth from '../components/OAuth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import logo from '../assets/logo.png'
+import bgImg from '../assets/auth-bg.jpg'
+
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -33,15 +36,15 @@ export default function SignUp() {
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
-        toast.error("Username/Email already exist ❌");
+        toast.error("Username/Email already exist ❌", {autoClose: 2000});
         return;
       }
       setLoading(false);
       setError(null);
-      toast.success("User created successfully 🎉");
+      toast.success("User created successfully 🎉", {autoClose: 3000});
       setTimeout(()=> {
         navigate('/login');
-      }, 6000)
+      }, 4000)
       
     } catch (error) {
       setLoading(false);
@@ -49,48 +52,58 @@ export default function SignUp() {
     }
   };
   return (
-    <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
-      <form onSubmit={handleSubmit} className='flex flex-col gap-4' autoComplete='off'>
-        <input
-          type='text'
-          placeholder='username'
-          className='border p-3 rounded-lg'
-          id='username'
-          onChange={handleChange}
-        />
-        <input
-          type='email'
-          placeholder='email'
-          className='border p-3 rounded-lg'
-          id='email'
-          onChange={handleChange}
-        />
-        <input
-          type='password'
-          placeholder='password'
-          className='border p-3 rounded-lg'
-          id='password'
-          onChange={handleChange}
-        />
-
-        <button
-          disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
-        >
-          {loading ? 'Loading...' : 'Sign Up'}
-        </button>
-        <OAuth/>
-      </form>
-      <div className='flex gap-2 mt-5'>
-        <p>Have an account?</p>
-        <Link to={'/sign-in'}>
-          <span className='text-blue-700'>Sign in</span>
-        </Link>
+    <div className='border-0 border-red-500 fixed top-0 flex flex-col justify-center items-center w-[100%] overflow-hidden h-[100vh] bg-center bg-cover' style={{backgroundImage: `url(${bgImg})`}}>
+      <div className='border-0 border-green-700 flex justify-center w-full absolute top-10 sm:top-5 lg:top-10 xl:top-15'>
+      <Link to="/" className='w-[30%] sm:w-[10%] xl:w-[7%]'><img className='w-full' src={logo} alt="md-estate-logo" /></Link>
       </div>
-      {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
-      {/* {error && <p className='text-red-500 font-semibold mt-5'>Duplicate username or email</p>} */}
-      <ToastContainer />
+      <div className='border-0 border-blue-500 w-[90%] sm:w-[50%] xl:w-[30%] 2xl:w-[25%] rounded-lg bg-slate-50/90 p-5  mx-auto shadow-lg'>
+        <h1 className='text-3xl text-center font-semibold'>Sign Up</h1>
+        <p className='text-lg text-center font-medium text-slate-600 mb-7 sm:mb-5'>Hi, Welcome 👋</p>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4 sm:gap-3' autoComplete='off'>
+          <input
+            type='text'
+            placeholder='Username'
+            className='border p-3 rounded-lg'
+            id='username'
+            onChange={handleChange}
+          />
+          <input
+            type='email'
+            placeholder='Email'
+            className='border p-3 rounded-lg'
+            id='email'
+            onChange={handleChange}
+          />
+          <input
+            type='password'
+            placeholder='Password'
+            className='border p-3 rounded-lg'
+            id='password'
+            onChange={handleChange}
+          />
+
+          <button
+            disabled={loading}
+            className='bg-blue-600 text-white p-3 rounded-lg font-semibold hover:opacity-95 hover:shadow-lg hover:shadow-blue-200 disabled:opacity-80'
+          >
+            {loading ? 'Loading...' : 'Sign up'}
+          </button>
+          <div className='relative my-3'>
+            <hr></hr>
+            <p className='border-0 border-red-500  text-slate-400 absolute top-[50%] left-[50%] translate-y-[-60%] translate-x-[-50%] px-2'>or</p>
+          </div>
+          <OAuth page="Sign up"/>
+        </form>
+        <div className='flex justify-center gap-2 mt-5 sm:mt-2'>
+          <p className='text-sm'>Already have an account?</p>
+          <Link to={'/login'}>
+            <span className='text-blue-700'>Log in</span>
+          </Link>
+        </div>
+        {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
+        {/* {error && <p className='text-red-500 font-semibold mt-5'>Duplicate username or email</p>} */}
+        <ToastContainer />
+      </div>
     </div>
   );
 }
