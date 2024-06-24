@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ModalContext } from "./ModalContext";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
@@ -39,6 +40,7 @@ const App = () => {
             <Route exact path="/update-listing/:listingId" element={<UpdateListing />} ></Route>
           </Route>
         </Routes>
+        <Footer />
       </ModalContext.Provider>
     </Router>
     </>

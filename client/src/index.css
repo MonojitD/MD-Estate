@@ -3,5 +3,113 @@
 @tailwind utilities;
 
 body{
-    background-color: rgb(241, 245, 241);
+    /* background-color: rgb(241, 245, 241); */
+}
+
+.animate-logo {
+    animation: animation-loop 1s infinite;
+}
+.swiper-button-prev,
+.swiper-button-next {
+    background-color: #fff;
+}
+.swiper-button-prev {
+    left: 0;
+    border-top-right-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
+.swiper-button-next {
+    right: 0;
+    border-top-left-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    color: #000;
+    font-size: 1.5rem;
+}
+.swiper-button-prev:hover::after,
+.swiper-button-next:hover::after {
+    color: #2563eb !important;
+}
+
+.list-box:hover img {
+    scale: 1.05;
+}
+.list-box:hover .list-name {
+    color: #2563eb;
+}
+
+
+.title .words {
+    position: relative;
+}
+.title .words span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    overflow: hidden;
+    width: 100%;
+    color: var(--orange)
+}
+
+.title .words span:nth-child(2) {
+    animation-delay: 2s
+}
+
+.title .words span:nth-child(3) {
+    animation-delay: 4s
+}
+
+.title .words span:nth-child(4) {
+    animation-delay: 6s
+}
+
+.title .rotate span {
+    animation: rotateWord 8s linear infinite
+}
+
+@keyframes rotateWord {
+    0% {
+        opacity: 0
+    }
+
+    2% {
+        opacity: 0;
+        transform: translateY(-30px)
+    }
+
+    5% {
+        opacity: 1;
+        transform: translateY(8px)
+    }
+
+    7% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    17% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    25% {
+        opacity: 0;
+        transform: translateY(30px)
+    }
+
+    80% {
+        opacity: 0
+    }
+
+    to {
+        opacity: 0
+    }
+}
+@keyframes animation-loop {
+    100% {
+        stroke-dashoffset: 0;
+    }
 }

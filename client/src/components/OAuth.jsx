@@ -9,7 +9,9 @@ import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../store/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-const OAuth = () => {
+import googleIcon from '../assets/google-logo.png'
+
+const OAuth = (props) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -32,17 +34,20 @@ const OAuth = () => {
             })
             const data = await res.json();
             dispatch(signInSuccess(data));
-            toast.success("Logged in successfully 🎉");
+            toast.success("Logged in successfully 🎉",{autoClose: 2000});
             setTimeout(()=> {
                 navigate('/');
-            }, 6000)
+            }, 3000)
         } catch (error) {
             toast.error("Could not sign up with Google ❌")
         }
     }
   return (
     <>
-        <button type='button' onClick={handleGoogleClick} className='bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Continue with Google</button>
+        <button type='button' onClick={handleGoogleClick} className='border bg-slate-50 flex justify-center items-center p-3 rounded-lg hover:opacity-95 hover:shadow-lg hover:shadow-slate-200 disabled:opacity-80'>
+            <img className='w-5' src={googleIcon} alt="" />
+            &ensp;{props.page} with Google
+        </button>
         <ToastContainer/>
     </>
   )

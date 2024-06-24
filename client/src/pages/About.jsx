@@ -4,11 +4,10 @@ export default function About() {
   return (
     <div className='py-20 px-4 max-w-6xl mx-auto'>
       <h1 className='text-3xl font-bold mb-4 text-slate-800'>About MD Estate</h1>
-      <p className='mb-4 text-slate-700'>MD Estate is a leading real estate agency that specializes in helping clients buy, sell, and rent properties in the most desirable neighborhoods. Our team of experienced agents is dedicated to providing exceptional service and making the buying and selling process as smooth as possible.</p>
+      <p className='mb-4 text-slate-700'>Welcome to MD Estate, your premier destination for exploring exquisite real estate opportunities built with the cutting-edge MERN (MongoDB, Express.js, React, Node.js) stack technology. At MD Estate, we redefine the art of real estate showcasing, leveraging the power of modern web development to offer a seamless and immersive experience. Whether you're looking for a luxurious penthouse in the heart of the city or a serene countryside estate, MD Estate provides a curated selection of properties that cater to every lifestyle and aspiration.</p>
       <p className='mb-4 text-slate-700'>
-      Our mission is to help our clients achieve their real estate goals by providing expert advice, personalized service, and a deep understanding of the local market. Whether you are looking to buy, sell, or rent a property, we are here to help you every step of the way.
+      Our platform is designed to empower both buyers and sellers with comprehensive tools and resources, ensuring transparency and efficiency throughout the real estate journey. Backed by a team of passionate professionals, MD Estate is committed to delivering unparalleled service and expertise, making your property search or sale process smooth and rewarding. Explore MD Estate today and discover how we blend innovation, elegance, and functionality to elevate your real estate experience to new heights.
       </p>
-      <p className='mb-4 text-slate-700'>Our team of agents has a wealth of experience and knowledge in the real estate industry, and we are committed to providing the highest level of service to our clients. We believe that buying or selling a property should be an exciting and rewarding experience, and we are dedicated to making that a reality for each and every one of our clients.</p>
     </div>
   )
 }
